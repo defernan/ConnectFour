@@ -3,10 +3,66 @@
 <head>
     <link rel="stylesheet" type="text/css" href="ConnectFour.css">
     <meta http-equiv="refresh" content="30">
+    <title>Connect Four</title>
+    
 </head>
     
 <body>
-    <canvas id="board"></canvas>
+    <canvas id="board" width="700" height="600"></canvas>
+    <script>
+        var context={};
+        var ctx={};
+        var board= [];
+        const empty=0;
+        const black=1;
+        const red=2;
+        init();
+        
+        context.addEventListener("click", makeMove, false);
+        
+        function init(){
+            context=document.getElementById("board");
+            ctx=context.getContext("2d");
+            var boardWidth=7;
+            var boardHeight=6;
+            //Set up an empty board
+            for(var i=0; i < boardWidth; i++){
+                board.push( [] );   
+            }
+            for(var i=0; i < boardWidth; i++){
+                for(var j=0; j < boardHeight; j++){
+                    board[i].push(empty);
+                }
+            }
+        }
+        function initializeBoard(){
+            for(var i=0; i < boardWidth; i++){
+                for(var j=0; j < boardHeight; j++){
+                    board[i][j]=empty;
+                }
+            }
+            //ctx.drawRect();
+        }
+        function makeMove(event){
+            var x= 0;
+			var y= 0;
+			if (event.x != undefined && event.y != undefined){
+				x = event.x;
+				y = event.y;
+			}else {// Firefox method to get the position
+				x = event.clientX + document.body.scrollLeft +
+				  document.documentElement.scrollLeft;
+				y = event.clientY + document.body.scrollTop +
+				  document.documentElement.scrollTop;
+			}
+            x -= context.offsetLeft;
+            y -= context.offsetTop;
+            alert( x +", " + y);
+            
+        }
+    
+    
+    </script>
 </body>
     
 </html>
