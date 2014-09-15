@@ -2,7 +2,6 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="ConnectFour.css">
-    <meta http-equiv="refresh" content="30">
     <title>Connect Four</title>
     
 </head>
@@ -15,6 +14,8 @@
         const empty=0;
         const black=1;
         const red=2;
+        var piece=0;
+        var P1turn=true;
         var context={};
         var ctx={};
         var board= [];
@@ -26,9 +27,6 @@
         function init(){
             context=document.getElementById("board");
             ctx=context.getContext("2d");
-            //var boardWidth=7;
-            //var boardHeight=6;
-            //Set up an empty board
             for(var i=0; i < boardWidth; i++){
                 board.push( [] );   
             }
@@ -45,7 +43,6 @@
                     board[i][j]=empty;
                 }
             }
-            //ctx.drawRect();
         }
         function makeMove(event){
             var x= 0;
@@ -61,7 +58,11 @@
 			}
             x -= context.offsetLeft;
             y -= context.offsetTop;
-            alert( x +", " + y);
+            x= Math.floor(x/100);
+            y=context.height-y;
+            y= Math.floor(y/100);
+            placePiece(x);
+            //alert( x +", " + y);
             
         }
         function drawBoard(){
@@ -72,6 +73,30 @@
                     ctx.stroke();
                 }
             }
+        }
+        function placePiece(x){
+            whosTurn();
+            for(var i=0; i < boardHeight; i++){
+                if(board[x][i]==empty){
+                    board[x][i]=piece;
+                    P1turn=!P1turn;
+                    break;
+                }
+                if(i==boardHeight-1){
+                    alert("Column is full, select another");
+                }
+            }
+            
+        }
+        function whosTurn(){
+            if(P1turn){
+                piece=black;
+            }else{
+                piece=red;
+            }
+        }
+        function checkForWinner(){
+            
         }
     
     
