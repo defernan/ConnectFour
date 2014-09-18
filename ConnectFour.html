@@ -15,7 +15,11 @@
         const empty=0;
         const black=1;
         const red=2;
+        const maxPieces=42;
+        var totalPieces=0;
         var piece=0;
+        var lastX;
+        var lastY;
         var P1turn=true;
         var context={};
         var ctx={};
@@ -62,7 +66,16 @@
             x= Math.floor(x/100);
             y=context.height-y;
             y= Math.floor(y/100);
-            placePiece(x);
+            //if piece placed, check for a winner
+            if(placePiece(x)){
+                //if winner tell who won
+                if(checkForWinner(lastX,lastY,count)){
+                    alert("Player " + piece + "won");   
+                }if(totalPieces==maxPieces){
+                    alert("Tie, game over");
+                }
+            }
+            
             //alert( x +", " + y);
             
         }
@@ -91,25 +104,24 @@
 			}
 			ctx.fill();
 			ctx.stroke();
-}
-		
+        }
+		//boolean return whether place was pieced or not
         function placePiece(x){
             whosTurn();
             for(var i=0; i < boardHeight; i++){
                 if(board[x][i]==empty){
                     board[x][i]=piece;
                     P1turn=!P1turn;
-                    /*var count=0;
-                    if(checkForWinner(x,i,count)){
-                         alert(piece +" won");
-                    }*/
-                    break;
+                    totalPieces++;
+                    lastX=x;
+                    lastY=i;
+                    return true;
                 }
                 if(i==boardHeight-1){
                     alert("Column is full, select another");
                 }
             }
-            
+            return false;
         }
         function whosTurn(){
             if(P1turn){
@@ -118,24 +130,23 @@
                 piece=red;
             }
         }
-        /*function checkForWinner(x,y,count){
+        function checkForWinner(x,y,count){
             if(x==boardWidth || y==boardHeight){
                 return false;
             }else if(board[x][y]==piece){
-                count++;
                 if(count==4){
                     return true;
                 }
-                checkForFour(x+1,y,count);
-                checkForFour(x,y+1,count);
-                checkForFour(x-1,y,count);
-                checkForFour(x,y-1,count);
-                checkForFour(x+1,y+1,count);
-                checkForFour(x-1,y-1,count);
+                checkForFour(x+1,y,count+1);
+                checkForFour(x,y+1,count+1);
+                checkForFour(x-1,y,count+1);
+                checkForFour(x,y-1,count+1);
+                checkForFour(x+1,y+1,count+1);
+                checkForFour(x-1,y-1,count+1);
             }else{
                 return false;
             }
-        }*/
+        }
     
     
     </script>
