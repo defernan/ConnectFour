@@ -71,7 +71,7 @@
                 var count=1;
                 if(checkForWinner(lastX,lastY,count)){
                     alert("Player " + piece + "won");   
-                }if(totalPieces==maxPieces){
+                }else if(totalPieces==maxPieces){
                     alert("Tie, game over");
                 }
             }
@@ -107,7 +107,9 @@
         }
 		//boolean return whether place was pieced or not
         function placePiece(x){
+            //change piece according to player
             whosTurn();
+            //place piece in column clicked if not full
             for(var i=0; i < boardHeight; i++){
                 if(board[x][i]==empty){
                     board[x][i]=piece;
@@ -116,13 +118,14 @@
                     lastX=x;
                     lastY=i;
                     return true;
-                }
-                if(i==boardHeight-1){
+                }else if(i==boardHeight-1){//alert if call is full
                     alert("Column is full, select another");
                 }
             }
+            //returns false if piece wasnt placed
             return false;
         }
+        //changes piece color accordingly
         function whosTurn(){
             if(P1turn){
                 piece=black;
@@ -137,16 +140,20 @@
                 if(count==4){
                     return true;
                 }
-                checkForWinner(x+1,y,count+1);
-                checkForWinner(x,y+1,count+1);
-                checkForWinner(x-1,y,count+1);
-                checkForWinner(x,y-1,count+1);
-                checkForWinner(x+1,y+1,count+1);
-                checkForWinner(x-1,y-1,count+1);
+                checkForFour(x+1,y,count+1);
+                checkForFour(x,y+1,count+1);
+                checkForFour(x-1,y,count+1);
+                checkForFour(x,y-1,count+1);
+                checkForFour(x+1,y+1,count+1);
+                checkForFour(x-1,y-1,count+1);
             }else{
                 return false;
             }
         }
+        function checkForFour(x,y,count){
+            
+        }
+        
     
     
     </script>
