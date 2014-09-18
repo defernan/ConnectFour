@@ -7,6 +7,7 @@
 </head>
     
 <body>
+	<h1>Connect Four!</h1>
     <canvas id="board" width="700" height="600"></canvas>
     <script>
         const boardWidth=7;
@@ -69,11 +70,29 @@
             var cellSize = context.height / boardHeight;
             for (var i=0; i < boardWidth; i++){
                 for (var j=0; j < boardHeight; j++) {
-                    ctx.rect(i*cellSize, j*cellSize, cellSize, cellSize);
-                    ctx.stroke();
+					drawSquare(cellSize, i*cellSize, j*cellSize, cellSize, cellSize, empty);
                 }
             }
         }
+		
+		function drawSquare(cellSize, x, y, width, height, identity) {
+			ctx.rect(x, y, width, height);
+			ctx.fillStyle = "yellow";
+			ctx.fillRect(x, y, width, height);
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.arc(x + cellSize/2, y + cellSize/2, 40, 0, 2*Math.PI);
+			if (identity == empty) {
+				ctx.fillStyle = "white";
+			} else if (identity == red) {
+				ctx.fillStyle = "red";
+			} else if (identity == black) {
+				ctx.fillStyle ="black";
+			}
+			ctx.fill();
+			ctx.stroke();
+}
+		
         function placePiece(x){
             whosTurn();
             for(var i=0; i < boardHeight; i++){
