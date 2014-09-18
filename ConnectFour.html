@@ -68,7 +68,7 @@
             y= Math.floor(y/100);
             //if piece placed, check for a winner
             if(placePiece(x)){
-                //if winner tell who won
+                var count=1;
                 if(checkForWinner(lastX,lastY,count)){
                     alert("Player " + piece + "won");   
                 }if(totalPieces==maxPieces){
@@ -137,12 +137,12 @@
                 if(count==4){
                     return true;
                 }
-                checkForFour(x+1,y,count+1);
-                checkForFour(x,y+1,count+1);
-                checkForFour(x-1,y,count+1);
-                checkForFour(x,y-1,count+1);
-                checkForFour(x+1,y+1,count+1);
-                checkForFour(x-1,y-1,count+1);
+                checkForWinner(x+1,y,count+1);
+                checkForWinner(x,y+1,count+1);
+                checkForWinner(x-1,y,count+1);
+                checkForWinner(x,y-1,count+1);
+                checkForWinner(x+1,y+1,count+1);
+                checkForWinner(x-1,y-1,count+1);
             }else{
                 return false;
             }
