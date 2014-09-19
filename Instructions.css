@@ -1,0 +1,38 @@
+h1 {
+	text-align: center;
+}
+
+p {
+	width: 700px;
+	text-align: center;
+	margin-right: auto;
+	margin-left: auto;
+	padding-left: 0;
+	padding-right: 0;
+	display: block;
+}
+
+ol {
+	width: 300px;
+	margin-right: auto;
+	margin-left: auto;
+	padding-left: 0;
+	padding-right: 0;
+	display: block;
+}
+
+img {
+	width: 180px;
+	height: 150px;
+	padding-bottom: 10px;
+}
+
+#luck {
+	color: red;
+}
+
+#final {
+	position: relative;
+	bottom: 300px;
+	left: 400px;
+}
