@@ -80,6 +80,10 @@
                 if(board[x][i]==empty){
                     board[x][i]=piece;
                     P1turn=!P1turn;
+                    /*var count=0;
+                    if(checkForWinner(x,i,count)){
+                         alert(piece +" won");
+                    }*/
                     break;
                 }
                 if(i==boardHeight-1){
@@ -95,9 +99,24 @@
                 piece=red;
             }
         }
-        function checkForWinner(){
-            
-        }
+        /*function checkForWinner(x,y,count){
+            if(x==boardWidth || y==boardHeight){
+                return false;
+            }else if(board[x][y]==piece){
+                count++;
+                if(count==4){
+                    return true;
+                }
+                checkForFour(x+1,y,count);
+                checkForFour(x,y+1,count);
+                checkForFour(x-1,y,count);
+                checkForFour(x,y-1,count);
+                checkForFour(x+1,y+1,count);
+                checkForFour(x-1,y-1,count);
+            }else{
+                return false;
+            }
+        }*/
     
     
     </script>
