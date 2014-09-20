@@ -68,8 +68,7 @@
             y= Math.floor(y/100);
             //if piece placed, check for a winner
             if(placePiece(x)){
-                var count=1;
-                if(checkForWinner(lastX,lastY,count)){
+                if(checkForWinner(lastX,lastY)){
                     alert("Player " + piece + "won");   
                 }else if(totalPieces==maxPieces){
                     alert("Tie, game over");
@@ -134,27 +133,89 @@
             }
         }
         function checkForWinner(x,y,count){
-            if(x==boardWidth || y==boardHeight){
-                return false;
-            }else if(board[x][y]==piece){
-                if(count==4){
-                    return true;
-                }
-                checkForFour(x+1,y,count+1);
-                checkForFour(x,y+1,count+1);
-                checkForFour(x-1,y,count+1);
-                checkForFour(x,y-1,count+1);
-                checkForFour(x+1,y+1,count+1);
-                checkForFour(x-1,y-1,count+1);
-            }else{
-                return false;
+            var win=4;
+            var horizontal=1+checkLeft(x-1,y)+checkRight(x+1,y);
+            var vertical=1+checkUp(x,y+1)+checkDown(x,y-1);
+            var diag1=1+checkDownLeft(x-1,y-1)+checkUpRight(x+1,y+1);
+            var diag2=1+ checkDownRight(x+1,y-1)+checkUpLeft(x-1,y+1);
+            if(horizontal==4 || vertical==4 || diag1==4 || diag2==4){
+                return true;
             }
+            return false;
         }
-        function checkForFour(x,y,count){
-            
+        //Checking directions
+        function checkLeft(x,y){
+            if( x < 0){
+                return 0;
+            }else if(board[x][y]!=piece){
+                return 0;
+            }else{
+                return 1+checkLeft(x-1,y);
+            }            
         }
-        
-    
+        function checkRight(x,y){
+            if( x == boardWidth){
+                return 0;
+            }else if(board[x][y]!=piece){
+                return 0;
+            }else{
+                return 1+checkRight(x+1,y);
+            }  
+        }
+        function checkUp(x,y){
+            if( y == boardHeight){
+                return 0;
+            }else if(board[x][y]!=piece){
+                return 0;
+            }else{
+                return 1+checkUp(x,y+1);
+            }  
+        }
+        function checkDown(x,y){
+            if( y < 0){
+                return 0;
+            }else if(board[x][y]!=piece){
+                return 0;
+            }else{
+                return 1+checkDown(x,y-1);
+            }  
+        }
+        function checkDownLeft(x,y){
+            if( y < 0 || x < 0){
+                return 0;
+            }else if(board[x][y]!=piece){
+                return 0;
+            }else{
+                return 1+checkDownLeft(x-1,y-1);
+            }  
+        }
+        function checkDownRight(x,y){
+            if( y < 0 || x == boardWidth){
+                return 0;
+            }else if(board[x][y]!=piece){
+                return 0;
+            }else{
+                return 1+checkDownRight(x+1,y-1);
+            }  
+        }
+        function checkUpLeft(x,y){
+            if( y == boardHeight || x < 0){
+                return 0;
+            }else if(board[x][y]!=piece){
+                return 0;
+            }else{
+                return 1+checkUpLeft(x-1,y+1);
+            }  
+        }
+        function checkUpRight(x,y){
+            if( y == boardHeight || x < 0){
+                return 0;
+            }else if(board[x][y]!=piece){
+                return 0;
+            }else{
+                return 1+checkUpRight(x+1,y+1);
+            }  
+        }
     
     </script>
 </body>
