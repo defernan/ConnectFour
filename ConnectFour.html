@@ -10,7 +10,7 @@
 	<h1>Welcome to Connect Four!</h1>
     <canvas id="board" width="700" height="600"></canvas>
     <a href="Instructions.html" target="_blank">Instructions</a>
-    <button type="button">Reset board</button>
+    <button type="button" onclick="resetBoard()">Reset board</button>
     <p id="turn">Player 1 turn!</p>
 
     <script>
@@ -19,7 +19,7 @@
         const empty=0;
         const black=1;
         const red=2;
-        const maxPieces=42;
+        const maxPieces=42; 
         var totalPieces=0;
         var piece=0;
         var lastX;
@@ -28,14 +28,23 @@
         var context={};
         var ctx={};
         var board= [];
+        var playing = true;
         
+        context=document.getElementById("board");
+        ctx=context.getContext("2d");
+        var cellSize = context.height / boardHeight;
         init();
         
-        context.addEventListener("click", makeMove, false);
-        
+        //Determines whether or not players can place pieces
+        function listenerActivation() {
+            if (playing) {
+                context.addEventListener("click", makeMove, false);
+            } else {
+                context.removeEventListener("click", makeMove, false);
+            }
+        }
+        //Determines attributes of board when the game is first initialized
         function init(){
-            context=document.getElementById("board");
-            ctx=context.getContext("2d");
             for(var i=0; i < boardWidth; i++){
                 board.push( [] );   
             }
@@ -44,15 +53,23 @@
                     board[i].push(empty);
                 }
             }
-            drawBoard();
+            playing = true;
+            listenerActivation();
+            initializeBoard();
         }
+        //Sets all positions on board to empty for resetting the game
         function initializeBoard(){
+            playing = true;
+            listenerActivation();
             for(var i=0; i < boardWidth; i++){
                 for(var j=0; j < boardHeight; j++){
                     board[i][j]=empty;
                 }
             }
+            //alert(board[1][5] == empty);
+            drawBoard();
         }
+        //Determines whether or not the location clicked results in a valid move
         function makeMove(event){
             if(P1turn) {
                 turn.innerHTML = "Player 1 turn!";
@@ -82,24 +99,23 @@
                 }else if(totalPieces==maxPieces){
                     alert("Tie, game over");
                 }
-            }
-            
-            //alert( x +", " + y);
-            
+            }          
         }
+        //Draws the empty game board
         function drawBoard(){
-            var cellSize = context.height / boardHeight;
+            playing = true;
+            listenerActivation();
             for (var i=0; i < boardWidth; i++){
                 for (var j=0; j < boardHeight; j++) {
-					drawSquare(cellSize, i*cellSize, j*cellSize, cellSize, cellSize, empty);
+					drawSquare(i*cellSize, j*cellSize, empty);
                 }
             }
         }
-		
-		function drawSquare(cellSize, x, y, width, height, identity) {
-			ctx.rect(x, y, width, height);
+		//Draws a game board square with the correct colored piece
+		function drawSquare(x, y, identity) {
+			ctx.rect(x, y, cellSize, cellSize);
 			ctx.fillStyle = "yellow";
-			ctx.fillRect(x, y, width, height);
+			ctx.fillRect(x, y, cellSize, cellSize);
 			ctx.stroke();
 			ctx.beginPath();
 			ctx.arc(x + cellSize/2, y + cellSize/2, 40, 0, 2*Math.PI);
@@ -118,15 +134,16 @@
             //change piece according to player
             whosTurn();
             //place piece in column clicked if not full
-            for(var i=0; i < boardHeight; i++){
-                if(board[x][i]==empty){
-                    board[x][i]=piece;
+            for(var i=boardHeight; i > 0; i--){
+                if(board[x][i-1]==empty){
+                    board[x][i-1]=piece;
+                    drawSquare(x*cellSize, (i-1)*cellSize, piece);
                     P1turn=!P1turn;
                     totalPieces++;
                     lastX=x;
-                    lastY=i;
+                    lastY=i-1;
                     return true;
-                }else if(i==boardHeight-1){//alert if call is full
+                }else if(i==1){//alert if call is full
                     alert("Column is full, select another");
                 }
             }
@@ -148,6 +165,8 @@
             var diag1=1+checkDownLeft(x-1,y-1)+checkUpRight(x+1,y+1);
             var diag2=1+ checkDownRight(x+1,y-1)+checkUpLeft(x-1,y+1);
             if(horizontal==4 || vertical==4 || diag1==4 || diag2==4){
+                playing = false;
+               listenerActivation();
                 return true;
             }
             return false;
@@ -224,6 +243,10 @@
             }else{
                 return 1+checkUpRight(x+1,y+1);
             }  
+        }
+        //Begins a new game
+        function resetBoard() {
+            initializeBoard();
         }
     
     </script>
