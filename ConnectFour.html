@@ -66,7 +66,6 @@
                     board[i][j]=empty;
                 }
             }
-            //alert(board[1][5] == empty);
             drawBoard();
         }
         //Determines whether or not the location clicked results in a valid move
@@ -94,7 +93,6 @@
             y= Math.floor(y/100);
             //if piece placed, check for a winner
             if(placePiece(x)){
-                //alert("hey");
                 if(checkForWinner(lastX,lastY)){
                     alert("Player " + piece + "won");   
                 }else if(totalPieces==maxPieces){
@@ -143,7 +141,6 @@
                     totalPieces++;
                     lastX=x;
                     lastY=i;
-                    //alert("X is " + lastX + " y is " + lastY + " Piece is " + board[lastX][lastY]);
                     return true;
                 }
             }
