@@ -94,6 +94,7 @@
             y= Math.floor(y/100);
             //if piece placed, check for a winner
             if(placePiece(x)){
+                //alert("hey");
                 if(checkForWinner(lastX,lastY)){
                     alert("Player " + piece + "won");   
                 }else if(totalPieces==maxPieces){
@@ -134,17 +135,16 @@
             //change piece according to player
             whosTurn();
             //place piece in column clicked if not full
-            for(var i=boardHeight; i > 0; i--){
-                if(board[x][i-1]==empty){
-                    board[x][i-1]=piece;
-                    drawSquare(x*cellSize, (i-1)*cellSize, piece);
+            for(var i=0; i < boardHeight; i++){
+                if(board[x][i]==empty){
+                    board[x][i]=piece;
+                    drawSquare(x*cellSize, (boardHeight-1-i)*cellSize, piece);
                     P1turn=!P1turn;
                     totalPieces++;
                     lastX=x;
-                    lastY=i-1;
+                    lastY=i;
+                    //alert("X is " + lastX + " y is " + lastY + " Piece is " + board[lastX][lastY]);
                     return true;
-                }else if(i==1){//alert if call is full
-                    alert("Column is full, select another");
                 }
             }
             //returns false if piece wasnt placed
@@ -166,7 +166,7 @@
             var diag2=1+ checkDownRight(x+1,y-1)+checkUpLeft(x-1,y+1);
             if(horizontal==4 || vertical==4 || diag1==4 || diag2==4){
                 playing = false;
-               listenerActivation();
+                listenerActivation();
                 return true;
             }
             return false;
@@ -236,7 +236,7 @@
             }  
         }
         function checkUpRight(x,y){
-            if( y == boardHeight || x < 0){
+            if( y == boardHeight || x == boardWidth){
                 return 0;
             }else if(board[x][y]!=piece){
                 return 0;
