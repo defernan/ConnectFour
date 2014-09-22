@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/javascript" href="animation.css">
+</head>
+<body>
+
+<canvas id="myCanvas" width="700" height="600" style="border:1px solid #d3d3d3;"></canvas>
+
+<script type="text/javascript">
+context = document.getElementById("myCanvas");
+ctx = context.getContext("2d");
+
+var x = context.width/2;
+var y = 40;
+var falling = true;
+
+function drawScreen() {
+	ctx.beginPath();
+	ctx.arc(x, y, 40, 0, 2*Math.PI);
+	ctx.fillStyle = "red";
+	ctx.fill();
+	ctx.stroke();
+	if(y < context.height/2) {
+		y+=10;
+	} else {
+		falling = false;
+	}
+}
+
+function gameLoop() {
+	window.setTimeout(gameLoop, 100);
+	drawScreen();
+	window.setTimeout(pause, 200);
+}
+gameLoop();
+
+function pause() {
+	//wait 1 s
+	if(falling) {
+		ctx.clearRect(x-45,y-70,90,100);
+	}
+}
+
+
+</script>
+
+</body>
+</html>
