@@ -37,29 +37,27 @@ button {
 }
 
 #winner {
-	text-align: center;
+	text-align: left;
 	font-family: "Comic Sans MS", cursive, sans-serif;
 	font-size: 60px;
+	margin-left: 20%;
 
-	-webkit-animation: moveStart 5s infinite;
-	-webkit-animation-direction: alternate;
-
-	animation: moveStart 5s infinite;
-	animation-direction: alternate;
+	-webkit-animation: moveStart 20s infinite;
+	animation: moveStart 20s infinite;
 }
 
 @-webkit-keyframes moveStart {
-	0%	{color: red; left: 0px;}
-	25%	{color: blue; left: 200px;}
-	50%	{color: green; left: 200px;}
-	75%	{color: yellow; left: 200px;}
-	100%{color: red; left: 0px;}
+	0%	{color: red; margin-left: 30%;}
+	25%	{color: blue; margin-left: 50%;}
+	50%	{color: green; margin-left: 30%;}
+	75%	{color: yellow; margin-left: 50%;}
+	100%{color: red; margin-left: 30%;}
 }
 
 @keyframes moveStart {
-	0%	{color: red; left: 0px;}
-	25%	{color: blue; left: 200px;}
-	50%	{color: green; left: 200px;}
-	75%	{color: yellow; left: 200px;}
-	100%{color: red; left: 0px;}
+	0%	{color: red; margin-left: 30%;}
+	25%	{color: blue; margin-left: 50%;}
+	50%	{color: green; margin-left: 30%;}
+	75%	{color: yellow; margin-left: 50%;}
+	100%{color: red; margin-left: 30%;}
 }
