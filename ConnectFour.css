@@ -16,7 +16,6 @@ h1 {
 	text-shadow: 4px 4px #330099;
 }
 
-
 a {
 	position: absolute;
 	left: 1400px;
@@ -41,6 +40,7 @@ button {
 	font-family: "Comic Sans MS", cursive, sans-serif;
 	font-size: 60px;
 	margin-left: 20%;
+	margin-top: 0;
 
 	-webkit-animation: moveStart 20s infinite;
 	animation: moveStart 20s infinite;
