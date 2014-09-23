@@ -12,6 +12,7 @@
     <a href="Instructions.html" target="_blank">Instructions</a>
     <button type="button" onclick="resetBoard()">Reset board</button>
     <p id="turn">Player 1 turn!</p>
+    <h2 id="winner"></h2>
 
     <script>
         const boardWidth=7;
@@ -70,11 +71,6 @@
         }
         //Determines whether or not the location clicked results in a valid move
         function makeMove(event){
-            if(P1turn) {
-                turn.innerHTML = "Player 1 turn!";
-            } else {
-                turn.innerHTML = "Player 2 turn!";
-            }
             var x= 0;
 			var y= 0;
 			if (event.x != undefined && event.y != undefined){
@@ -93,12 +89,22 @@
             y= Math.floor(y/100);
             //if piece placed, check for a winner
             if(placePiece(x)){
+                if(P1turn) {
+                    turn.innerHTML = "Player 1 turn!";
+                } else {
+                    turn.innerHTML = "Player 2 turn!";
+                }    
                 if(checkForWinner(lastX,lastY)){
-                    alert("Player " + piece + "won");   
+                    //alert("Player " + piece + "won");
+                    turn.innerHTML = "Game Over!";
+                    winner.innerHTML = "Player " + piece + " won!";
                 }else if(totalPieces==maxPieces){
-                    alert("Tie, game over");
+                    //alert("Tie, game over");
+                    turn.innerHTML = "Game Over!";
+                    winner.innerHTML = "Tie, game over.";
                 }
-            }          
+            }
+
         }
         //Draws the empty game board
         function drawBoard(){
@@ -244,6 +250,7 @@
         //Begins a new game
         function resetBoard() {
             initializeBoard();
+            winner.innerHTML = "";
         }
     
     </script>
